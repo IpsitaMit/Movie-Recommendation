@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recomendation System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <title>Document</title>
+</head>
+
+<body class="bg-[url({% static 'background.jpg' %})]">
+    <div class="bg-gradient-to-b from-black to-transparent bg-no-repeat">
+        <div class="flex justify-center ">
+            <h1 class="text-white text-5xl mt-16">Welcome to the movie Recomendation System!</h1>
+        </div>
+        <form class="flex justify-center" action="" method="POST">
+            {% csrf_token %}
+            <input class="w-2/3 my-16 p-3 pl-8 rounded-l-full" type="text" placeholder="Enter Movie Name" name="Movie_name">
+            <button class="bg-white my-16 w-16 h-16 p-3 rounded-r-full btn" type="submit">
+                <i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+            </button>
+        </form>
+        <h1 class="flex justify-center text-2xl text-white ">Movies Recomended for you:</h1>
+        <div class="">
+            {% for x, y in posters_list %}
+            <img src="{{y}}" alt="">
+            <h1 class="flex justify-center text-white m-4">{{x}}</h1>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+
+</html>
