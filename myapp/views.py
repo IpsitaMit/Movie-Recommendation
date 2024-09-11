@@ -7,10 +7,13 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
 # Create your views here.
+# Read csv
 movies = pd.read_csv("D:\\MLarchive\\ml-move recomrnder\\movies.csv")
 ratings = pd.read_csv("D:\\MLarchive\\ml-move recomrnder\\ratings.csv")
 posters = pd.read_csv("D:\\MLarchive\\ml-move recomrnder\\MovieGenre.csv",encoding = "ISO-8859-1")
+# Take 2 consequtive words to convert to numbers
 vectorizer = TfidfVectorizer(ngram_range = (1,2))
+
 
 def cleanTitle(title):
         return re.sub("[^a-zA-Z0-9 ]","",title)
@@ -38,13 +41,14 @@ def search(title,tfidf):
         return results
 
 def index(request):
-    
+    # Take move name from user
     Movie_name = request.POST.get("Movie_name")
     if (Movie_name==None):
            Movie_name=""
     movies["clean_title"]=movies["title"].apply(cleanTitle)
 
     recomended_movie_names=["Type in a movie name to get recomendations!"]
+    # Transform title into number matrix
     tfidf=vectorizer.fit_transform(movies["clean_title"])
     if (Movie_name!=""):
         to_match = search(Movie_name,tfidf)
